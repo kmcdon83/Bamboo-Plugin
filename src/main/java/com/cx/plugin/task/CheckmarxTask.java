@@ -67,7 +67,6 @@ public class CheckmarxTask implements TaskType {
                     String errorMsg = "Connection Failed.\n" +
                             "Possible reason: Plugin version incompatible with CxSAST v8.7 or lower.\n" +
                             "If your CxSAST version is v8.8 or greater, please recheck connection details or contact support.";
-                    log.error(errorMsg);
                     throw new TaskException(ex.getMessage() + ": " + errorMsg);
                 }
                 throw new TaskException(ex.getMessage(), ex);
