@@ -6,6 +6,7 @@ import com.cx.restclient.CxShragaClient;
 import com.cx.restclient.dto.Team;
 import com.cx.restclient.sast.dto.Preset;
 import org.codehaus.plexus.util.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +66,15 @@ public class CxRestResource {
         String pas = StringUtils.defaultString(credentials.get("pas"));
         try {
             if (loginToServer(url, username, decrypt(pas))) {
+                try {
+                    teams = shraga.getTeamList();
+                } catch (Exception e) {
+                    throw new Exception("Connection Failed.\n" +
+                            "Validate the provided login credentials and server URL are correct.\n" +
+                            "In addition, make sure the installed plugin version is compatible with the CxSAST version according to CxSAST release notes.\n" +
+                            "Error: " + e.getMessage());
+                }
                 presets = shraga.getPresetList();
-                teams = shraga.getTeamList();
                 if (presets == null || teams == null) {
                     throw new Exception("invalid preset teamPath");
                 }
@@ -75,19 +83,27 @@ public class CxRestResource {
                 statusCode = 200;
 
             } else {
-                result = result.contains("Failed to authenticate")? "Failed to authenticate": result;
-                result = result.startsWith("Login failed.")? result: "Login failed. " + result;
-
-                presets = new ArrayList<Preset>() {{new Preset(NO_PRESET_ID, NO_PRESET_MESSAGE);}};
-                teams = new ArrayList<Team>() {{new Team(NO_TEAM_PATH, NO_TEAM_MESSAGE);}};
-
-                tcResponse = new TestConnectionResponse(result, presets, teams);
+                result = result.contains("Failed to authenticate") ? "Failed to authenticate" : result;
+                result = result.startsWith("Login failed.") ? result : "Login failed. " + result;
+                tcResponse = getTCFailedResponse();
             }
         } catch (Exception e) {
             result = "Fail to login: " + e.getMessage();
-            tcResponse = new TestConnectionResponse(result, presets, teams);
+            tcResponse = getTCFailedResponse();
         }
         return Response.status(statusCode).entity(tcResponse).build();
+    }
+
+    @NotNull
+    private TestConnectionResponse getTCFailedResponse() {
+        presets = new ArrayList<Preset>() {{
+            new Preset(NO_PRESET_ID, NO_PRESET_MESSAGE);
+        }};
+        teams = new ArrayList<Team>() {{
+            new Team(NO_TEAM_PATH, NO_TEAM_MESSAGE);
+        }};
+
+        return new TestConnectionResponse(result, presets, teams);
     }
 
     private boolean loginToServer(URL url, String username, String password) {

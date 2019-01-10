@@ -59,6 +59,18 @@ public class CheckmarxTask implements TaskType {
                 shraga = new CxShragaClient(config, log);
                 shraga.init();
             } catch (Exception ex) {
+                if (ex.getMessage().contains("Server is unavailable")) {
+                    try {
+                        shraga.login();
+                    } catch (CxClientException e) {
+                        throw new TaskException(e.getMessage());
+                    }
+                    String errorMsg = "Connection Failed.\n" +
+                            "Validate the provided login credentials and server URL are correct.\n" +
+                            "In addition, make sure the installed plugin version is compatible with the CxSAST version according to CxSAST release notes.\n" +
+                            "Error: " + ex.getMessage();
+                    throw new TaskException(ex.getMessage() + ": " + errorMsg);
+                }
                 throw new TaskException(ex.getMessage(), ex);
             }
 
