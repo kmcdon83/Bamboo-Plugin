@@ -60,7 +60,7 @@ public class CheckmarxTask implements TaskType {
             } catch (Exception ex) {
                 if (ex.getMessage().contains("Server is unavailable")) {
                     try {
-                        shraga.getTeamList();
+                        shraga.login();
                     } catch (CxClientException e) {
                         throw new IOException(e);
                     }
