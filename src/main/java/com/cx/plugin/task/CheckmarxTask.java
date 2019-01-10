@@ -62,7 +62,7 @@ public class CheckmarxTask implements TaskType {
                     try {
                         shraga.login();
                     } catch (CxClientException e) {
-                        throw new IOException(e);
+                        throw new TaskException(e.getMessage());
                     }
                     String errorMsg = "Connection Failed.\n" +
                             "Validate the provided login credentials and server URL are correct.\n" +
