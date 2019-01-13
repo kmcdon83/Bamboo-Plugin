@@ -101,4 +101,9 @@ public class CxParam {
             "!**/*.stml,    !**/*.ttml,      !**/*.txn,      !**/*.xhtm,     !**/*.xhtml,   !**/*.class, !**/*.iml,   !**/Checkmarx/Reports/**/* , !**/node_modules/**/*";
 
     public static final String DEFAULT_OSA_ARCHIVE_INCLUDE_PATTERNS = "*.zip, *.tgz, *.war, *.ear";
+
+    public static final String CONNECTION_FAILED_COMPATIBILITY = "Connection Failed.\n" +
+            "Validate the provided login credentials and server URL are correct.\n" +
+            "In addition, make sure the installed plugin version is compatible with the CxSAST version according to CxSAST release notes.";
+
 }

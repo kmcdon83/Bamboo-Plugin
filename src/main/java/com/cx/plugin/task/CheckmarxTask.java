@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import static com.cx.plugin.utils.CxParam.CONNECTION_FAILED_COMPATIBILITY;
 import static com.cx.plugin.utils.CxParam.HTML_REPORT;
 import static com.cx.plugin.utils.CxPluginUtils.printBuildFailure;
 import static com.cx.plugin.utils.CxPluginUtils.printConfiguration;
@@ -64,11 +65,7 @@ public class CheckmarxTask implements TaskType {
                     } catch (CxClientException e) {
                         throw new TaskException(e.getMessage());
                     }
-                    String errorMsg = "Connection Failed.\n" +
-                            "Validate the provided login credentials and server URL are correct.\n" +
-                            "In addition, make sure the installed plugin version is compatible with the CxSAST version according to CxSAST release notes.\n" +
-                            "Error: " + ex.getMessage();
-                    throw new TaskException(ex.getMessage() + ": " + errorMsg);
+                    throw new TaskException(ex.getMessage() + ": " + CONNECTION_FAILED_COMPATIBILITY);
                 }
                 throw new TaskException(ex.getMessage(), ex);
             }

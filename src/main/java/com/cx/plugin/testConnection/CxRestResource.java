@@ -69,10 +69,7 @@ public class CxRestResource {
                 try {
                     teams = shraga.getTeamList();
                 } catch (Exception e) {
-                    throw new Exception("Connection Failed.\n" +
-                            "Validate the provided login credentials and server URL are correct.\n" +
-                            "In addition, make sure the installed plugin version is compatible with the CxSAST version according to CxSAST release notes.\n" +
-                            "Error: " + e.getMessage());
+                    throw new Exception(CONNECTION_FAILED_COMPATIBILITY +  "\nError: " + e.getMessage());
                 }
                 presets = shraga.getPresetList();
                 if (presets == null || teams == null) {
