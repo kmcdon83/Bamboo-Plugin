@@ -65,7 +65,7 @@ public class CheckmarxTask implements TaskType {
                     } catch (CxClientException e) {
                         throw new TaskException(e.getMessage());
                     }
-                    throw new TaskException(ex.getMessage() + ": " + CONNECTION_FAILED_COMPATIBILITY);
+                    throw new TaskException(CONNECTION_FAILED_COMPATIBILITY);
                 }
                 throw new TaskException(ex.getMessage(), ex);
             }
