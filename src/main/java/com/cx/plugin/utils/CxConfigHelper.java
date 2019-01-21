@@ -57,7 +57,7 @@ public class CxConfigHelper {
         } else {
             scanConfig.setUrl(getAdminConfig(GLOBAL_SERVER_URL));
             scanConfig.setUsername(getAdminConfig(GLOBAL_USER_NAME));
-            scanConfig.setPassword(decrypt(getAdminConfig(GLOBAL_PASSWORD)));
+            scanConfig.setPassword(decrypt(getAdminConfig(GLOBAL_PWD)));
         }
 
         scanConfig.setProjectName(configMap.get(PROJECT_NAME).trim());

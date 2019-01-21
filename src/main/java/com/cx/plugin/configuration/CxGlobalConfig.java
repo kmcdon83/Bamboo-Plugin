@@ -25,12 +25,11 @@ import static com.cx.plugin.utils.CxPluginUtils.encrypt;
 public class CxGlobalConfig extends GlobalAdminAction {
     private String globalServerUrl;
     private String globalUsername;
-    private String globalPassword;
+    private String globalPwd;
 
     private String globalFilterPatterns = DEFAULT_FILTER_PATTERNS;
     private String globalFolderExclusions;
     private String globalIsSynchronous;
-    private String globalHideResults;
     private String globalEnablePolicyViolations;
     private String globalScanTimeoutInMinutes;
     private String globalThresholdsEnabled;
@@ -51,7 +50,7 @@ public class CxGlobalConfig extends GlobalAdminAction {
 
         globalServerUrl = adminConfig.getSystemProperty(GLOBAL_SERVER_URL);
         globalUsername = adminConfig.getSystemProperty(GLOBAL_USER_NAME);
-        globalPassword = adminConfig.getSystemProperty(GLOBAL_PASSWORD);
+        globalPwd = adminConfig.getSystemProperty(GLOBAL_PWD);
 
         globalFolderExclusions = adminConfig.getSystemProperty(GLOBAL_FOLDER_EXCLUSION);
         String filterProperty = adminConfig.getSystemProperty(GLOBAL_FILTER_PATTERN);
@@ -99,7 +98,7 @@ public class CxGlobalConfig extends GlobalAdminAction {
         final AdministrationConfiguration adminConfig = (AdministrationConfiguration) ContainerManager.getComponent(ADMINISTRATION_CONFIGURATION);
         adminConfig.setSystemProperty(GLOBAL_SERVER_URL, globalServerUrl);
         adminConfig.setSystemProperty(GLOBAL_USER_NAME, globalUsername);
-        adminConfig.setSystemProperty(GLOBAL_PASSWORD, encrypt(globalPassword));
+        adminConfig.setSystemProperty(GLOBAL_PWD, encrypt(globalPwd));
 
         adminConfig.setSystemProperty(GLOBAL_FOLDER_EXCLUSION, globalFolderExclusions);
         adminConfig.setSystemProperty(GLOBAL_FILTER_PATTERN, globalFilterPatterns);
@@ -204,12 +203,12 @@ public class CxGlobalConfig extends GlobalAdminAction {
         this.globalUsername = globalUsername.trim();
     }
 
-    public String getGlobalPassword() {
-        return globalPassword;
+    public String getGlobalPwd() {
+        return globalPwd;
     }
 
-    public void setGlobalPassword(String globalPassword) {
-        this.globalPassword = globalPassword;
+    public void setGlobalPwd(String globalPwd) {
+        this.globalPwd = globalPwd;
     }
 
     public String getGlobalFilterPatterns() {

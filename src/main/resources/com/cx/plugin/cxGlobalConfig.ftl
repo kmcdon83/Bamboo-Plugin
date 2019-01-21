@@ -85,7 +85,7 @@
     [@ui.bambooSection title='Checkmarx Server' cssClass="cx center"]
         [@ww.textfield labelKey="serverUrl.label" name="globalServerUrl"/]
         [@ww.textfield labelKey="username.label" name="globalUsername"/]
-        [@ww.password labelKey="password.label" name="globalPassword" showPassword='true' /]
+        [@ww.password labelKey="password.label" name="globalPwd" showPassword='true' /]
     <button type="button" class="aui-button test-connection" id="g_test_connection" onclick="connectToServer()">Connect to Server</button>
     <div id="gtestConnectionMessage" class="test-connection-message"></div>
     [/@ui.bambooSection]
@@ -134,7 +134,7 @@
 
             var url = document.getElementById("checkmarxDefaultConfiguration_globalServerUrl").value;
             var username = document.getElementById("checkmarxDefaultConfiguration_globalUsername").value;
-            var pas = document.getElementById("checkmarxDefaultConfiguration_globalPassword").value;
+            var pas = document.getElementById("checkmarxDefaultConfiguration_globalPwd").value;
 
             if (!validateGlobalFields()) {
                 return;

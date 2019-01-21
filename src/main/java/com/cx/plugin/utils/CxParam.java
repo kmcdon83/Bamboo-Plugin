@@ -71,7 +71,7 @@ public class CxParam {
     public static final String OPTION_FALSE = "false";
 
     public static final String GLOBAL_USER_NAME = "globalUsername";
-    public static final String GLOBAL_PASSWORD = "globalPassword";
+    public static final String GLOBAL_PWD = "globalPwd";
     public static final String GLOBAL_SERVER_URL = "globalServerUrl";
     public static final String GLOBAL_FOLDER_EXCLUSION = "globalFolderExclusions";
     public static final String GLOBAL_FILTER_PATTERN = "globalFilterPatterns";

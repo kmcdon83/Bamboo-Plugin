@@ -98,14 +98,14 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
     private void populateCredentialsFieldsForCreate(final Map<String, Object> context) {
         String cxServerUrl = getAdminConfig(GLOBAL_SERVER_URL);
         String cxUser = getAdminConfig(GLOBAL_USER_NAME);
-        String cxPass = getAdminConfig(GLOBAL_PASSWORD);
+        String cxPass = getAdminConfig(GLOBAL_PWD);
 
         context.put(SERVER_URL, "");
         context.put(USER_NAME, "");
         context.put(PASSWORD, "");
         context.put(GLOBAL_SERVER_URL, cxServerUrl);
         context.put(GLOBAL_USER_NAME, cxUser);
-        context.put(GLOBAL_PASSWORD, cxPass);
+        context.put(GLOBAL_PWD, cxPass);
         context.put(SERVER_CREDENTIALS_SECTION, GLOBAL_CONFIGURATION_SERVER);
 
         populateTeamAndPresetFields(cxServerUrl, cxUser, cxPass, null, null, context);
@@ -190,7 +190,7 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         if ((GLOBAL_CONFIGURATION_SERVER.equals(configType))) {
             cxServerUrl = getAdminConfig(GLOBAL_SERVER_URL);
             cxUser = getAdminConfig(GLOBAL_USER_NAME);
-            cxPass = getAdminConfig(GLOBAL_PASSWORD);
+            cxPass = getAdminConfig(GLOBAL_PWD);
 
         } else {
             cxServerUrl = configMap.get(SERVER_URL);
@@ -203,7 +203,7 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         context.put(PASSWORD, configMap.get(PASSWORD));
         context.put(GLOBAL_SERVER_URL, getAdminConfig(GLOBAL_SERVER_URL));
         context.put(GLOBAL_USER_NAME, getAdminConfig(GLOBAL_USER_NAME));
-        context.put(GLOBAL_PASSWORD, getAdminConfig(GLOBAL_PASSWORD));
+        context.put(GLOBAL_PWD, getAdminConfig(GLOBAL_PWD));
         context.put(SERVER_CREDENTIALS_SECTION, configType);
 
         String cxPreset = configMap.get(PRESET_ID);
