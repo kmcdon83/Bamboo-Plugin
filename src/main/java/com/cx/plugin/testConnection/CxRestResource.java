@@ -103,9 +103,9 @@ public class CxRestResource {
         return new TestConnectionResponse(result, presets, teams);
     }
 
-    private boolean loginToServer(URL url, String username, String password) {
+    private boolean loginToServer(URL url, String username, String pd) {
         try {
-            shraga = new CxShragaClient(url.toString().trim(), username, password, CX_ORIGIN, false, logger);
+            shraga = new CxShragaClient(url.toString().trim(), username, pd, CX_ORIGIN, false, logger);
             shraga.login();
 
             return true;
