@@ -69,17 +69,7 @@ public class CheckmarxTask implements TaskType {
                 }
                 throw new TaskException(ex.getMessage(), ex);
             }
-
-            if (config.getSastEnabled()) {
-                try {
-                    shraga.createSASTScan();
-                    sastCreated = true;
-                } catch (IOException | CxClientException e) {
-                    ret.setSastCreateException(e);
-                    log.error(e.getMessage());
-                }
-            }
-
+            //Create OSA scan
             if (config.getOsaEnabled()) {
                 //---------------------------
                 //we do this in order to redirect the logs from the filesystem agent component to the build console
@@ -97,6 +87,16 @@ public class CheckmarxTask implements TaskType {
                     Logger.getRootLogger().removeAppender(appenderName);
                 }
             }
+            //Create SAST scan
+            if (config.getSastEnabled()) {
+                try {
+                    shraga.createSASTScan();
+                    sastCreated = true;
+                } catch (IOException | CxClientException e) {
+                    ret.setSastCreateException(e);
+                    log.error(e.getMessage());
+                }
+            }
 
             //Asynchronous MODE
             if (!config.getSynchronous()) {
@@ -111,7 +111,7 @@ public class CheckmarxTask implements TaskType {
 
                 return taskResultBuilder.success().build();
             }
-
+            //Get SAST results
             if (sastCreated) {
                 try {
                     SASTResults sastResults = shraga.waitForSASTResults();
@@ -122,6 +122,7 @@ public class CheckmarxTask implements TaskType {
                 }
             }
 
+            //Get OSA results
             if (osaCreated) {
                 try {
                     OSAResults osaResults = shraga.waitForOSAResults();
