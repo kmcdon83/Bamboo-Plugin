@@ -6,7 +6,7 @@ package com.cx.plugin.task;
 
 import com.atlassian.bamboo.task.*;
 import com.atlassian.bamboo.v2.build.BuildContext;
-import com.cx.plugin.dto.ScanResults;
+import com.cx.plugin.dto.BambooScanResults;
 import com.cx.plugin.utils.CxAppender;
 import com.cx.plugin.utils.CxConfigHelper;
 import com.cx.plugin.utils.CxLoggerAdapter;
@@ -52,7 +52,7 @@ public class CheckmarxTask implements TaskType {
                 //TODO run.setResult(Result.FAILURE);
             }
             //create scans and retrieve results (in jenkins agent)
-            ScanResults ret = new ScanResults(new SASTResults(), new OSAResults());
+            BambooScanResults ret = new BambooScanResults();
 
 
             //initialize cx client
@@ -68,6 +68,7 @@ public class CheckmarxTask implements TaskType {
                     }
                     throw new TaskException(CONNECTION_FAILED_COMPATIBILITY);
                 }
+                ret.setGeneralException(ex);
                 throw new TaskException(ex.getMessage(), ex);
             }
 
@@ -107,7 +108,7 @@ public class CheckmarxTask implements TaskType {
                 String summaryStr = shraga.generateHTMLSummary();
                 ret.getSummary().put(HTML_REPORT, summaryStr);
 
-                if (ret.getSastCreateException() != null || ret.getOsaCreateException() != null) {
+                if (ret.getSastCreateException() != null || ret.getOsaCreateException() != null || ret.getGeneralException() != null) {
                     printBuildFailure(null, ret, log);
                     return taskResultBuilder.failed().build();
                 }
@@ -149,7 +150,7 @@ public class CheckmarxTask implements TaskType {
             //assert if expected exception is thrown  OR when vulnerabilities under threshold OR when policy violated
             String buildFailureResult = ShragaUtils.getBuildFailureResult(config, ret.getSastResults(), ret.getOsaResults());
             if (!StringUtils.isEmpty(buildFailureResult) || ret.getSastWaitException() != null || ret.getSastCreateException() != null ||
-                    ret.getOsaCreateException() != null || ret.getOsaWaitException() != null)
+                    ret.getOsaCreateException() != null || ret.getOsaWaitException() != null || ret.getGeneralException() != null)
             {
                 printBuildFailure(buildFailureResult, ret, log);
                 return taskResultBuilder.failed().build();

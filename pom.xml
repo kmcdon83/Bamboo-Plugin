@@ -74,6 +74,11 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
       <groupId>com.atlassian.templaterenderer</groupId>
       <artifactId>atlassian-template-renderer-api</artifactId>
       <version>1.1.1</version>
@@ -99,6 +104,10 @@
         <exclusion>
           <artifactId>spring-web</artifactId>
           <groupId>org.springframework</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jersey-client</artifactId>
+          <groupId>com.sun.jersey</groupId>
         </exclusion>
       </exclusions>
     </dependency>

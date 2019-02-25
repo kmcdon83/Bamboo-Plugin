@@ -2,8 +2,8 @@ package com.cx.plugin.utils;
 
 import com.atlassian.bamboo.security.EncryptionException;
 import com.atlassian.bamboo.security.EncryptionServiceImpl;
-import com.cx.plugin.dto.ScanResults;
 import com.cx.restclient.configuration.CxScanConfig;
+import com.cx.restclient.dto.ScanResults;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
@@ -19,7 +19,7 @@ public abstract class CxPluginUtils {
         log.info("Username: " + config.getUsername());
         log.info("URL: " + config.getUrl());
         log.info("Project name: " + config.getProjectName());
-        log.info("Deny project creation: " + config.getDenyProject());
+        log.info("Deny new project creation: " + config.getDenyProject());
         log.info("Hide scan results: " + config.getHideResults());
         log.info("Scan timeout in minutes: " + (config.getSastScanTimeoutInMinutes() <= 0 ? "" : config.getSastScanTimeoutInMinutes()));
         log.info("Full team path: " + config.getTeamPath());
@@ -64,6 +64,7 @@ public abstract class CxPluginUtils {
         log.error(" The Build Failed for the Following Reasons: ");
         log.error("********************************************");
 
+        logError(ret.getGeneralException(), log);
         logError(ret.getSastCreateException(), log);
         logError(ret.getSastWaitException(), log);
         logError(ret.getOsaCreateException(), log);
