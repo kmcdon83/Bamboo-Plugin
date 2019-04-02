@@ -86,6 +86,16 @@
         [@ww.textfield labelKey="serverUrl.label" name="globalServerUrl"/]
         [@ww.textfield labelKey="username.label" name="globalUsername"/]
         [@ww.password labelKey="password.label" name="globalPwd" showPassword='true' /]
+
+        [@ww.checkbox labelKey="useProxy.label" name="globalUseProxy" descriptionKey="useProxy.description" toggle='true' /]
+        [@ui.bambooSection dependsOn='globalUseProxy' showOn='true']
+            [@ww.textfield labelKey="proxyHost.label" name="globalProxyHost" descriptionKey="userHost.description"/]
+            [@ww.textfield labelKey="proxyPort.label" name="globalProxyPort" descriptionKey="userPort.description"/]
+            [@ww.textfield labelKey="proxyScheme.label" name="globalProxyScheme" descriptionKey="proxyScheme.description"/]
+            [@ww.textfield labelKey="proxyUser.label" name="globalProxyUser" descriptionKey="proxyUser.description"/]
+            [@ww.textfield labelKey="proxyPass.label" name="globalProxyPass" descriptionKey="proxyUser.description"/]
+        [/@ui.bambooSection]
+
     <button type="button" class="aui-button test-connection" id="g_test_connection" onclick="connectToServer()">Connect to Server</button>
     <div id="gtestConnectionMessage" class="test-connection-message"></div>
     [/@ui.bambooSection]

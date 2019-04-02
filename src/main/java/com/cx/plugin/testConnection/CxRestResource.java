@@ -3,6 +3,7 @@ package com.cx.plugin.testConnection;
 
 import com.cx.plugin.testConnection.dto.TestConnectionResponse;
 import com.cx.restclient.CxShragaClient;
+import com.cx.restclient.dto.CxProxy;
 import com.cx.restclient.dto.Team;
 import com.cx.restclient.sast.dto.Preset;
 import org.codehaus.plexus.util.StringUtils;
@@ -64,12 +65,17 @@ public class CxRestResource {
 
         String username = StringUtils.defaultString(userDetails.get("username"));
         String pas = StringUtils.defaultString(userDetails.get("pas"));
+        CxProxy proxy = new CxProxy(((Boolean) userDetails.get("useProxy")).booleanValue(), StringUtils.defaultString(userDetails.get("proxyHost")),
+                ((Integer) userDetails.get("proxyPort")), StringUtils.defaultString(userDetails.get("proxyScheme")),
+                StringUtils.defaultString(userDetails.get("proxyUser")), StringUtils.defaultString(userDetails.get("proxyPass")));
+
+
         try {
-            if (loginToServer(url, username, decrypt(pas))) {
+            if (loginToServer(url, username, decrypt(pas), proxy)) {
                 try {
                     teams = shraga.getTeamList();
                 } catch (Exception e) {
-                    throw new Exception(CONNECTION_FAILED_COMPATIBILITY +  "\nError: " + e.getMessage());
+                    throw new Exception(CONNECTION_FAILED_COMPATIBILITY + "\nError: " + e.getMessage());
                 }
                 presets = shraga.getPresetList();
                 if (presets == null || teams == null) {
@@ -103,9 +109,9 @@ public class CxRestResource {
         return new TestConnectionResponse(result, presets, teams);
     }
 
-    private boolean loginToServer(URL url, String username, String pd) {
+    private boolean loginToServer(URL url, String username, String pd, CxProxy proxy) {
         try {
-            shraga = new CxShragaClient(url.toString().trim(), username, pd, CX_ORIGIN, false, logger);
+            shraga = new CxShragaClient(url.toString().trim(), username, pd, proxy, CX_ORIGIN, false, logger);
             shraga.login();
 
             return true;
