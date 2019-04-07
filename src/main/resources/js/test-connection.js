@@ -73,40 +73,15 @@
             messageElement.css('color', '#d22020');
             return false;
         }
-        if ($('#useProxy').val().length < 1) {
-            if ($('#proxyHost').val().length > 1){
-                messageElement.text('Proxy host must not be empty');
-                messageElement.css('color', '#d22020');
-                return false;
-            }
-
-            if ($('#proxyPort').val().length > 1 && !isValidPort($('#proxyPort').val())){
-                messageElement.text('Proxy port must be a valid port number');
-                messageElement.css('color', '#d22020');
-                return false;
-            }
-        }
 
         return true;
     }
-
-    function isValidPort(input) {
-        var num = +input;
-        return num >= 1 && num <= 65535 && input === num.toString();
-    }
-    //add proxy validation
 
     function getInputData() {
         return {
             "url": $("#serverUrl").val(),
             "username": $('#username').val(),
-            "pas": $('#password').val(),
-            "useProxy": $('#useProxy').val(),
-            "proxyHost": $('#proxyHost').val(),
-            "proxyPort": $('#proxyPort').val(),
-            "proxyScheme": $('#proxyScheme').val(),
-            "proxyUser": $('#proxyUser').val(),
-            "proxyPass": $('#proxyPass').val()
+            "pas": $('#password').val()
         };
     }
 

@@ -14,7 +14,6 @@ import com.atlassian.bamboo.ww2.actions.build.admin.config.task.ConfigureBuildTa
 import com.atlassian.spring.container.ContainerManager;
 import com.atlassian.util.concurrent.Nullable;
 import com.cx.restclient.CxShragaClient;
-import com.cx.restclient.dto.CxProxy;
 import com.cx.restclient.dto.Team;
 import com.cx.restclient.sast.dto.Preset;
 import com.google.common.collect.ImmutableMap;
@@ -109,20 +108,13 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         context.put(GLOBAL_PWD, cxPass);
         context.put(SERVER_CREDENTIALS_SECTION, GLOBAL_CONFIGURATION_SERVER);
 
-        context.put(GLOBAL_USE_PROXY, false);
-        context.put(GLOBAL_PROXY_HOST, "");
-        context.put(GLOBAL_PROXY_PORT, "80");
-        context.put(GLOBAL_PROXY_SCHEME, "Http");//todo
-        context.put(GLOBAL_PROXY_USER, "");
-        context.put(GLOBAL_PROXY_PASS, "");
-
-        populateTeamAndPresetFields(cxServerUrl, cxUser, cxPass, null, null, null, context);
+        populateTeamAndPresetFields(cxServerUrl, cxUser, cxPass, null, null, context);
     }
 
-    private void populateTeamAndPresetFields(final String serverUrl, final String username, final String password, String preset, String teamPath, CxProxy proxy, @NotNull final Map<String, Object> context) {
+    private void populateTeamAndPresetFields(final String serverUrl, final String username, final String password, String preset, String teamPath, @NotNull final Map<String, Object> context) {
         try {
             //the method initialized the CxClient service
-            if (tryLogin(username, password, serverUrl, proxy)) {
+            if (tryLogin(username, password, serverUrl)) {
 
                 presetList = convertPresetToMap(shraga.getPresetList());
                 context.put(PRESET_LIST, presetList);
@@ -213,23 +205,13 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         context.put(GLOBAL_USER_NAME, getAdminConfig(GLOBAL_USER_NAME));
         context.put(GLOBAL_PWD, getAdminConfig(GLOBAL_PWD));
 
-        context.put(GLOBAL_USE_PROXY, getAdminConfig(GLOBAL_USE_PROXY));
-        context.put(GLOBAL_PROXY_HOST, getAdminConfig(GLOBAL_PROXY_HOST));
-        context.put(GLOBAL_PROXY_PORT, getAdminConfig(GLOBAL_PROXY_PORT));
-        context.put(GLOBAL_PROXY_SCHEME, getAdminConfig(GLOBAL_PROXY_SCHEME));
-        context.put(GLOBAL_PROXY_USER, getAdminConfig(GLOBAL_PROXY_USER));
-        context.put(GLOBAL_PROXY_PASS, getAdminConfig(GLOBAL_PROXY_PASS));
 
         context.put(SERVER_CREDENTIALS_SECTION, configType);
-
-        CxProxy proxy = new CxProxy(Boolean.valueOf(getAdminConfig(GLOBAL_USE_PROXY)), getAdminConfig(GLOBAL_PROXY_HOST), Integer.parseInt(getAdminConfig(GLOBAL_PROXY_PORT)), //todo add validation to port int
-                getAdminConfig(GLOBAL_PROXY_SCHEME), getAdminConfig(GLOBAL_PROXY_USER), getAdminConfig(GLOBAL_PROXY_PASS));
-
 
         String cxPreset = configMap.get(PRESET_ID);
         String cxTeam = configMap.get(TEAM_PATH_ID);
 
-        populateTeamAndPresetFields(cxServerUrl, cxUser, cxPass, cxPreset, cxTeam, proxy, context);
+        populateTeamAndPresetFields(cxServerUrl, cxUser, cxPass, cxPreset, cxTeam, context);
     }
 
     private void populateCxSASTFields(@NotNull final Map<String, Object> context, Map<String, String> configMap, boolean forCreate) {
@@ -307,14 +289,11 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         String presetId = params.getString(PRESET_ID);
         String presetName = "";
 
-        CxProxy proxy = new CxProxy(params.getBoolean(GLOBAL_USE_PROXY), params.getString(GLOBAL_PROXY_HOST), params.getInt(GLOBAL_PROXY_PORT, 80),
-                params.getString(GLOBAL_PROXY_SCHEME), params.getString(GLOBAL_PROXY_USER), params.getString(GLOBAL_PROXY_PASS));
-
 
         if (!(NO_PRESET).equals(presetId)) {
             config.put(PRESET_ID, presetId);
             if (presetList.isEmpty()) {
-                if (shraga != null || tryLogin(params.getString(USER_NAME), params.getString(PASSWORD), params.getString(SERVER_URL), proxy)) {
+                if (shraga != null || tryLogin(params.getString(USER_NAME), params.getString(PASSWORD), params.getString(SERVER_URL))) {
                     try {
                         Preset preset = shraga.getPresetById(Integer.parseInt(presetId));
                         presetName = preset.getName();
@@ -333,7 +312,7 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         if (!NO_TEAM_PATH.equals(teamId)) {
             config.put(TEAM_PATH_ID, teamId);
             if (teamPathList.isEmpty()) {
-                if (shraga != null || tryLogin(params.getString(USER_NAME), params.getString(PASSWORD), params.getString(SERVER_URL), proxy)) {
+                if (shraga != null || tryLogin(params.getString(USER_NAME), params.getString(PASSWORD), params.getString(SERVER_URL))) {
                     try {
                         teaName = shraga.getTeamNameById(teamId);
                     } catch (Exception e) {
@@ -374,13 +353,6 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         config.put(USER_NAME, getDefaultString(params, USER_NAME).trim());
         config.put(PASSWORD, encrypt(getDefaultString(params, PASSWORD)));
 
-        config.put(GLOBAL_USE_PROXY, getDefaultString(params, GLOBAL_USE_PROXY).trim());
-        config.put(GLOBAL_PROXY_HOST, getDefaultString(params, GLOBAL_PROXY_HOST).trim());
-        config.put(GLOBAL_PROXY_PORT, getDefaultString(params, GLOBAL_PROXY_PORT).trim());
-        config.put(GLOBAL_PROXY_SCHEME, getDefaultString(params, GLOBAL_PROXY_SCHEME).trim());
-        config.put(GLOBAL_PROXY_USER, getDefaultString(params, GLOBAL_PROXY_USER).trim());
-        config.put(GLOBAL_PROXY_PASS, getDefaultString(params, GLOBAL_PROXY_PASS).trim());
-
         return config;
     }
 
@@ -417,13 +389,13 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
     }
 
     //the method initialized shraga client
-    private boolean tryLogin(String username, String cxPass, String serverUrl, CxProxy proxy) {
+    private boolean tryLogin(String username, String cxPass, String serverUrl) {
         log.debug("tryLogin: server URL: " + serverUrl + " username" + username);
 
         if (!StringUtils.isEmpty(serverUrl) && !StringUtils.isEmpty(username) && !StringUtils.isEmpty(cxPass)) {
             try {
                 URL cxUrl = new URL(serverUrl);
-                shraga = new CxShragaClient(cxUrl.toString().trim(), username, decrypt(cxPass), proxy, CX_ORIGIN, false, log);
+                shraga = new CxShragaClient(cxUrl.toString().trim(), username, decrypt(cxPass), CX_ORIGIN, false, log);
                 shraga.login();
 
                 return true;

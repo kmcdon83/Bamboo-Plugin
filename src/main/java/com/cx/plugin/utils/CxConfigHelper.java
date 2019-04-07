@@ -5,7 +5,6 @@ import com.atlassian.bamboo.configuration.ConfigurationMap;
 import com.atlassian.bamboo.task.TaskException;
 import com.atlassian.spring.container.ContainerManager;
 import com.cx.restclient.configuration.CxScanConfig;
-import com.cx.restclient.dto.CxProxy;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
@@ -59,8 +58,6 @@ public class CxConfigHelper {
             scanConfig.setUrl(getAdminConfig(GLOBAL_SERVER_URL));
             scanConfig.setUsername(getAdminConfig(GLOBAL_USER_NAME));
             scanConfig.setPassword(decrypt(getAdminConfig(GLOBAL_PWD)));
-            scanConfig.setProxy(new CxProxy(Boolean.parseBoolean(getAdminConfig(GLOBAL_USE_PROXY)),getAdminConfig(GLOBAL_PROXY_HOST),Integer.parseInt(getAdminConfig(GLOBAL_PROXY_PORT)),
-                                getAdminConfig(GLOBAL_PROXY_SCHEME),getAdminConfig(GLOBAL_PROXY_USER),getAdminConfig(GLOBAL_PROXY_PASS)));
         }
 
         scanConfig.setProjectName(configMap.get(PROJECT_NAME).trim());

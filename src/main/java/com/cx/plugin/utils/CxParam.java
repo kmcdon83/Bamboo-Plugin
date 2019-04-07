@@ -73,12 +73,6 @@ public class CxParam {
     public static final String GLOBAL_USER_NAME = "globalUsername";
     public static final String GLOBAL_PWD = "globalPwd";
     public static final String GLOBAL_SERVER_URL = "globalServerUrl";
-    public static final String GLOBAL_USE_PROXY = "globalUseProxy";
-    public static final String GLOBAL_PROXY_HOST = "globalProxyHost";
-    public static final String GLOBAL_PROXY_PORT = "globalProxyPort";
-    public static final String GLOBAL_PROXY_SCHEME = "globalProxyScheme";
-    public static final String GLOBAL_PROXY_USER = "globalProxyUser";
-    public static final String GLOBAL_PROXY_PASS = "globalProxyPass";
 
     public static final String GLOBAL_FOLDER_EXCLUSION = "globalFolderExclusions";
     public static final String GLOBAL_FILTER_PATTERN = "globalFilterPatterns";
