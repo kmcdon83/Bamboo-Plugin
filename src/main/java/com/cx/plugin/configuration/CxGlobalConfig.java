@@ -25,7 +25,7 @@ import static com.cx.plugin.utils.CxPluginUtils.encrypt;
 public class CxGlobalConfig extends GlobalAdminAction {
     private String globalServerUrl;
     private String globalUsername;
-    private String globalPwd;
+    private String globalPss;
 
     private String globalFilterPatterns = DEFAULT_FILTER_PATTERNS;
     private String globalFolderExclusions;
@@ -50,7 +50,7 @@ public class CxGlobalConfig extends GlobalAdminAction {
 
         globalServerUrl = adminConfig.getSystemProperty(GLOBAL_SERVER_URL);
         globalUsername = adminConfig.getSystemProperty(GLOBAL_USER_NAME);
-        globalPwd = adminConfig.getSystemProperty(GLOBAL_PWD);
+        globalPss = adminConfig.getSystemProperty(GLOBAL_PWD);
 
         globalFolderExclusions = adminConfig.getSystemProperty(GLOBAL_FOLDER_EXCLUSION);
         String filterProperty = adminConfig.getSystemProperty(GLOBAL_FILTER_PATTERN);
@@ -98,7 +98,7 @@ public class CxGlobalConfig extends GlobalAdminAction {
         final AdministrationConfiguration adminConfig = (AdministrationConfiguration) ContainerManager.getComponent(ADMINISTRATION_CONFIGURATION);
         adminConfig.setSystemProperty(GLOBAL_SERVER_URL, globalServerUrl);
         adminConfig.setSystemProperty(GLOBAL_USER_NAME, globalUsername);
-        adminConfig.setSystemProperty(GLOBAL_PWD, encrypt(globalPwd));
+        adminConfig.setSystemProperty(GLOBAL_PWD, encrypt(globalPss));
 
         adminConfig.setSystemProperty(GLOBAL_FOLDER_EXCLUSION, globalFolderExclusions);
         adminConfig.setSystemProperty(GLOBAL_FILTER_PATTERN, globalFilterPatterns);
@@ -203,12 +203,12 @@ public class CxGlobalConfig extends GlobalAdminAction {
         this.globalUsername = globalUsername.trim();
     }
 
-    public String getGlobalPwd() {
-        return globalPwd;
+    public String getGlobalPss() {
+        return globalPss;
     }
 
-    public void setGlobalPwd(String globalPwd) {
-        this.globalPwd = globalPwd;
+    public void setGlobalPss(String globalPss) {
+        this.globalPss = globalPss;
     }
 
     public String getGlobalFilterPatterns() {
