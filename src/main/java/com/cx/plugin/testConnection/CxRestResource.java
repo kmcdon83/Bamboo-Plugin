@@ -41,7 +41,7 @@ public class CxRestResource {
     @Path("test/connection")
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response testConnection(Map<Object, Object> userDetails) {
+    public Response testConnection(Map<Object, Object> data) {
 
         TestConnectionResponse tcResponse;
         result = "";
@@ -49,7 +49,7 @@ public class CxRestResource {
         String urlToCheck;
         int statusCode = 400;
 
-        urlToCheck = StringUtils.defaultString(userDetails.get("url"));
+        urlToCheck = StringUtils.defaultString(data.get("url"));
 
         try {
             url = new URL(urlToCheck);
@@ -62,8 +62,8 @@ public class CxRestResource {
             return Response.status(statusCode).entity(tcResponse).build();
         }
 
-        String username = StringUtils.defaultString(userDetails.get("username"));
-        String pas = StringUtils.defaultString(userDetails.get("pas"));
+        String username = StringUtils.defaultString(data.get("username"));
+        String pas = StringUtils.defaultString(data.get("pas"));
 
         try {
             if (loginToServer(url, username, decrypt(pas))) {
