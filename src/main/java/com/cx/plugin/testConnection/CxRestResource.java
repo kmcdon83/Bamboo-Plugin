@@ -5,6 +5,7 @@ import com.cx.plugin.testConnection.dto.TestConnectionResponse;
 import com.cx.restclient.CxShragaClient;
 import com.cx.restclient.dto.Team;
 import com.cx.restclient.sast.dto.Preset;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.codehaus.plexus.util.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -52,14 +53,16 @@ public class CxRestResource {
         urlToCheck = StringUtils.defaultString(data.get("url"));
 
         try {
+            UrlValidator urlValidator = new UrlValidator();
+            if(!urlValidator.isValid(urlToCheck)){
+                return getInvalidUrlResponse(statusCode);
+            }
             url = new URL(urlToCheck);
             HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
 
             urlConn.connect();
         } catch (Exception e) {
-            result = "Invalid URL";
-            tcResponse = new TestConnectionResponse(result, null, null);
-            return Response.status(statusCode).entity(tcResponse).build();
+            return getInvalidUrlResponse(statusCode);
         }
 
         String username = StringUtils.defaultString(data.get("username"));
@@ -89,6 +92,13 @@ public class CxRestResource {
             result = "Fail to login: " + e.getMessage();
             tcResponse = getTCFailedResponse();
         }
+        return Response.status(statusCode).entity(tcResponse).build();
+    }
+
+    private Response getInvalidUrlResponse(int statusCode) {
+        TestConnectionResponse tcResponse;
+        result = "Invalid URL";
+        tcResponse = new TestConnectionResponse(result, null, null);
         return Response.status(statusCode).entity(tcResponse).build();
     }
 
