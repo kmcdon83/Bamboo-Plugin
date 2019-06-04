@@ -105,6 +105,10 @@
                     <artifactId>c3p0</artifactId>
                     <groupId>com.mchange</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -136,6 +140,11 @@
             <artifactId>spring-web</artifactId>
             <groupId>org.springframework</groupId>
             <version>5.1.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <artifactId>spring-core</artifactId>
+            <groupId>org.springframework</groupId>
+            <version>4.3.16.RELEASE</version>
         </dependency>
         <dependency>
             <artifactId>activemq-mqtt</artifactId>
