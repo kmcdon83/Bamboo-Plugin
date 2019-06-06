@@ -59,10 +59,5 @@ public class DisplayResultsCondition implements Condition {
             return (Preconditions.checkNotNull(taskIdentifier)).getPluginKey().startsWith("com.cx.checkmarx-bamboo-plugin:checkmarx");
         }
 
-        @Override
-        public boolean test(@javax.annotation.Nullable TASKDEF input) {
-            return this.apply(input);
-        }
-
     }
 }
