@@ -12,6 +12,13 @@
     <name>Checkmarx Bamboo Plugin</name>
     <description>Checkmarx Plugin For Atlassian Bamboo</description>
     <packaging>atlassian-plugin</packaging>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>atlassian_3rd_party</id>-->
+<!--            <name>atlassian 3rd party</name>-->
+<!--            <url>https://repo.spring.io/plugins-release/</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
     <build>
         <resources>
             <resource>
@@ -56,11 +63,29 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.opensymphony.propertyset.providers</groupId>
+            <artifactId>hibernate4</artifactId>
+            <version>1.6.0-atlassian-3</version>
+        </dependency>
+        <dependency>
             <groupId>com.atlassian.bamboo</groupId>
             <artifactId>atlassian-bamboo-web</artifactId>
             <version>${bamboo.version}</version>
             <scope>provided</scope>
             <exclusions>
+                <exclusion>
+                    <groupId>com.opensymphony.propertyset.providers</groupId>
+                    <artifactId>hibernate4</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>dom4j</groupId>
+                    <artifactId>dom4j</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
@@ -90,8 +115,8 @@
                     <artifactId>spring-web</artifactId>
                 </exclusion>
                 <!--<exclusion>-->
-                    <!--<groupId>commons-fileupload</groupId>-->
-                    <!--<artifactId>commons-fileupload</artifactId>-->
+                <!--<groupId>commons-fileupload</groupId>-->
+                <!--<artifactId>commons-fileupload</artifactId>-->
                 <!--</exclusion>-->
                 <exclusion>
                     <groupId>com.mchange</groupId>
@@ -146,9 +171,9 @@
             <version>4.1.9.RELEASE</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>commons-fileupload</groupId>-->
-            <!--<artifactId>commons-fileupload</artifactId>-->
-            <!--<version>1.4</version>-->
+        <!--<groupId>commons-fileupload</groupId>-->
+        <!--<artifactId>commons-fileupload</artifactId>-->
+        <!--<version>1.4</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
