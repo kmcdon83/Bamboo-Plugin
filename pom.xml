@@ -62,11 +62,11 @@
         <common.client.version>9.00.3</common.client.version>
     </properties>
     <dependencies>
-         <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-        </dependency> 
+<!--         <dependency>-->
+<!--            <groupId>dom4j</groupId>-->
+<!--            <artifactId>dom4j</artifactId>-->
+<!--            <version>1.6.1</version>-->
+<!--        </dependency> -->
         <dependency>
             <groupId>com.opensymphony.propertyset.providers</groupId>
             <artifactId>hibernate4</artifactId>
@@ -82,10 +82,10 @@
                     <groupId>com.opensymphony.propertyset.providers</groupId>
                     <artifactId>hibernate4</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>dom4j</groupId>
-                    <artifactId>dom4j</artifactId>
-                </exclusion> 
+<!--                <exclusion>-->
+<!--                    <groupId>dom4j</groupId>-->
+<!--                    <artifactId>dom4j</artifactId>-->
+<!--                </exclusion> -->
                 <exclusion>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
