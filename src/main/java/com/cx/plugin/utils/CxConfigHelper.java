@@ -82,7 +82,6 @@ public class CxConfigHelper {
             scanConfig.setSastFolderExclusions(configMap.get(FOLDER_EXCLUSION));
             scanConfig.setSastFilterPattern(configMap.get(FILTER_PATTERN));
             scanConfig.setSastScanTimeoutInMinutes(resolveInt(configMap.get(SCAN_TIMEOUT_IN_MINUTES), log));
-
         } else {
             scanConfig.setSastFolderExclusions(getAdminConfig(GLOBAL_FOLDER_EXCLUSION));
             scanConfig.setSastFilterPattern(getAdminConfig(GLOBAL_FILTER_PATTERN));
