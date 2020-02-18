@@ -1,2 +1,26 @@
+
+
+# Default ignored files
+
+work/
+out/
+
+#Gradle
+.gradle/
+build/
+#Maven
+target/
+#Eclipse
+.classpath
+.project
+bin/
+.settings/
+
+#IntelliJ
 .idea/
 *.iml
+*.iws
+#Jenkins specific out
+*.hpi
+classes/
+
