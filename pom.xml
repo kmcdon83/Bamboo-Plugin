@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cx</groupId>
     <artifactId>checkmarx-bamboo-plugin</artifactId>
-    <version>2020.1.8.test</version>
+    <version>2020.1.10.test</version>
     <organization>
         <name>Checkmarx LTD</name>
         <url>http://www.checkmarx.com/</url>
@@ -59,7 +59,7 @@
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <common.client.version>2020.1.6.NO.SCA.TEST</common.client.version>
+        <common.client.version>2020.1.9.NO.SCA.TEST</common.client.version>
     </properties>
     <dependencies>
 <!--         <dependency>-->
