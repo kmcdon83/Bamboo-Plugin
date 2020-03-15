@@ -118,6 +118,15 @@
             [/@ui.bambooSection]
         [/@ui.bambooSection]
 
+         [@ww.checkbox labelKey="globalDefineDependencyScan.label" name="globalDependencyScanEnabled" descriptionKey="thresholdsEnabled.description" toggle='true' /]
+            [@ui.bambooSection dependsOn='globalDependencyScanEnabled' showOn='true']
+                [@ww.textfield labelKey="osaHighThreshold.label" name="globalOsaHighThreshold" required='false'/]
+                [@ww.textfield labelKey="osaMediumThreshold.label" name="globalOsaMediumThreshold" required='false'/]
+                [@ww.textfield labelKey="osaLowThreshold.label" name="globalOsaLowThreshold" required='false'/]
+            [/@ui.bambooSection]
+        [/@ui.bambooSection]
+
+
         [@ww.checkbox labelKey="globalDenyProject.label" name="globalDenyProject" descriptionKey="globalDenyProject.description" /]
         [@ww.checkbox labelKey="globalHideResults.label" name="globalHideResults" descriptionKey="globalHideResults.description" toggle='true' /]
 
