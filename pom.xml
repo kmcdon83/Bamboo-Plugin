@@ -62,11 +62,11 @@
         <common.client.version>2020.1.6.NO.SCA.OLdFsa</common.client.version>
     </properties>
     <dependencies>
-<!--         <dependency>-->
-<!--            <groupId>dom4j</groupId>-->
-<!--            <artifactId>dom4j</artifactId>-->
-<!--            <version>1.6.1</version>-->
-<!--        </dependency> -->
+         <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency> 
         <dependency>
             <groupId>com.opensymphony.propertyset.providers</groupId>
             <artifactId>hibernate4</artifactId>
