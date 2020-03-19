@@ -237,8 +237,8 @@
             <version>1.6</version>
             <exclusions>
             <exclusion>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
+                 <groupId>commons-beanutils</groupId>
+                 <artifactId>commons-beanutils</artifactId>
             </exclusion>
             </exclusions>
         </dependency>
