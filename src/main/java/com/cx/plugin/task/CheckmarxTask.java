@@ -69,7 +69,7 @@ public class CheckmarxTask implements TaskType {
                     throw new TaskException(CONNECTION_FAILED_COMPATIBILITY);
                 }
                 ret.setGeneralException(ex);
-                throw new TaskException(ex.getMessage(), ex);
+                throw new TaskException(ex.getMessage());
             }
 
             //Create OSA scan
