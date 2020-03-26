@@ -118,8 +118,8 @@
             [/@ui.bambooSection]
         [/@ui.bambooSection]
 
-        [@ww.checkbox labelKey="globalDenyProject.label" name="globalDenyProject" descriptionKey="globalDenyProject.description" /]
-        [@ww.checkbox labelKey="globalHideResults.label" name="globalHideResults" descriptionKey="globalHideResults.description" toggle='true' /]
+        [@ww.checkbox labelKey="isglobalDenyProject.label" name="globalDenyProject" descriptionKey="isglobalDenyProject.description" /]
+        [@ww.checkbox labelKey="isglobalHideResults.label" name="globalHideResults" descriptionKey="isglobalHideResults.description" toggle='true' /]
 
     [/@ui.bambooSection]
 [/@ww.form]

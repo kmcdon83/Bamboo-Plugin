@@ -130,7 +130,6 @@ public class CxConfigHelper {
         }
         scanConfig.setDenyProject(resolveGlobalBool(GLOBAL_DENY_PROJECT));
         scanConfig.setHideResults(resolveGlobalBool(GLOBAL_HIDE_RESULTS));
-
         return scanConfig;
     }
 

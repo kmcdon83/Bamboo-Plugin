@@ -110,7 +110,6 @@ public class CxGlobalConfig extends GlobalAdminAction {
             globalOsaThresholdsEnabled = null;
             globalEnablePolicyViolations = null;
         }
-        adminConfig.setSystemProperty(GLOBAL_HIDE_RESULTS, globalHideResults);
         adminConfig.setSystemProperty(GLOBAL_POLICY_VIOLATION_ENABLED, globalEnablePolicyViolations);
         adminConfig.setSystemProperty(GLOBAL_THRESHOLDS_ENABLED, globalThresholdsEnabled);
         adminConfig.setSystemProperty(GLOBAL_HIGH_THRESHOLD, globalHighThreshold);

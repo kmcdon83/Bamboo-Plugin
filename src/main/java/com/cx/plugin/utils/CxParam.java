@@ -87,6 +87,8 @@ public class CxParam {
     public static final String GLOBAL_OSA_MEDIUM_THRESHOLD = "globalOsaMediumThreshold";
     public static final String GLOBAL_OSA_LOW_THRESHOLD = "globalOsaLowThreshold";
     public static final String GLOBAL_DENY_PROJECT = "globalDenyProject";
+    public static final String IS_GLOBAL_DENY_PROJECT = "isglobalDenyProject";
+    public static final String IS_GLOBAL_HIDE_RESULTS = "isglobalHideResults";
     public static final String GLOBAL_HIDE_RESULTS = "globalHideResults";
     public static final String GLOBAL_POLICY_VIOLATION_ENABLED = "globalEnablePolicyViolations";
     public static final String DEFAULT_FILTER_PATTERNS = "!**/_cvs/**/*, !**/.svn/**/*,   !**/.hg/**/*,   !**/.git/**/*,  !**/.bzr/**/*, !**/bin/**/*," +
