@@ -60,6 +60,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <common.client.version>9.00.19.bamboo</common.client.version>
+
+        <sonar.projectKey>checkmarx-ltd_Bamboo-Plugin</sonar.projectKey>
+        <sonar.organization>checkmarx-ltd</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>f51556a6951f6d0667e68c3521abdc4029777ea5</sonar.login>
     </properties>
     <dependencies>
        <!--  <dependency>
