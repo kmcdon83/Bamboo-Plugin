@@ -15,10 +15,10 @@ target/
 .project
 bin/
 .settings/
-
+.idea/Bamboo-Plugin.iml
 #IntelliJ
 .idea/
-*.iml
+.iml
 *.iws
 #Jenkins specific out
 *.hpi
