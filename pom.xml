@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cx</groupId>
     <artifactId>checkmarx-bamboo-plugin</artifactId>
-    <version>2020.1.12</version>
+    <version>2020.1.13</version>
     <organization>
         <name>Checkmarx LTD</name>
         <url>http://www.checkmarx.com/</url>
@@ -185,9 +185,60 @@
         </dependency>
         <dependency>
             <groupId>com.checkmarx</groupId>
+            <artifactId>cx-ws-fs-agent</artifactId>
+            <version>20.0.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>bcpg-jdk15on</artifactId>
+                    <groupId>org.bouncycastle</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>plexus-archiver</artifactId>
+                    <groupId>org.codehaus.plexus</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>plexus-utils</artifactId>
+                    <groupId>org.codehaus.plexus</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-dataformat-yaml</artifactId>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-core</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.checkmarx</groupId>
             <artifactId>cx-client-common</artifactId>
             <version>${common.client.version}</version>
             <exclusions>
+                <exclusion>
+                    <groupId>com.checkmarx</groupId>
+                    <artifactId>cx-ws-fs-agent</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>stax</groupId>
                     <artifactId>stax-api</artifactId>

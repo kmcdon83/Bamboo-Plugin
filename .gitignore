@@ -1,26 +1,26 @@
-
-
 # Default ignored files
-
 work/
 out/
 
-#Gradle
+# Gradle
 .gradle/
 build/
-#Maven
+
+# Maven
 target/
-#Eclipse
+
+# Eclipse
 .classpath
 .project
 bin/
 .settings/
-.idea/Bamboo-Plugin.iml
-#IntelliJ
+
+# IntelliJ
 .idea/
-.iml
+*.iml
 *.iws
-#Jenkins specific out
+
+# Jenkins specific out
 *.hpi
 classes/
 
