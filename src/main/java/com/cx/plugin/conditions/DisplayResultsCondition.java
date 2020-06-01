@@ -54,12 +54,11 @@ public class DisplayResultsCondition implements Condition {
     }
 
     private static class IsCxTaskPredicate<TASKDEF extends TaskIdentifier> implements Predicate<TASKDEF> {
-        @Override
+
         public boolean apply(@Nullable TASKDEF taskIdentifier) {
             return (Preconditions.checkNotNull(taskIdentifier)).getPluginKey().startsWith("com.cx.checkmarx-bamboo-plugin:checkmarx");
         }
 
-        @Override
         public boolean test(@javax.annotation.Nullable TASKDEF input) {
             return this.apply(input);
         }
