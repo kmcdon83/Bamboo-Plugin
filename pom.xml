@@ -79,7 +79,7 @@
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <common.client.version>9.00.19.bamboo</common.client.version>
+        <common.client.version>9.00.20.bamboo</common.client.version>
 
         <sonar.projectKey>checkmarx-ltd_Bamboo-Plugin</sonar.projectKey>
         <sonar.organization>checkmarx-ltd</sonar.organization>
@@ -108,10 +108,18 @@
                     <groupId>com.opensymphony.propertyset.providers</groupId>
                     <artifactId>hibernate4</artifactId>
                 </exclusion>
-                <!--                <exclusion>-->
-                <!--                    <groupId>dom4j</groupId>-->
-                <!--                    <artifactId>dom4j</artifactId>-->
-                <!--                </exclusion> -->
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>jackson-dataformat-cbor</artifactId>
+                </exclusion>
+<!--                <exclusion>-->
+<!--                    <groupId>dom4j</groupId>-->
+<!--                    <artifactId>dom4j</artifactId>-->
+<!--                </exclusion> -->
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
                 <exclusion>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
@@ -164,9 +172,20 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-cbor</artifactId>
+            <version>2.6.7</version>
+            <exclusions>
+                <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>4.3.15.RELEASE</version>
+            <artifactId>spring-web</artifactId>
+            <version>5.0.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -187,6 +206,11 @@
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk14</artifactId>
             <version>1.61</version>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.2</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>commons-fileupload</groupId>-->
@@ -210,6 +234,10 @@
             <version>${common.client.version}</version>
             <exclusions>
                 <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
                     <groupId>stax</groupId>
                     <artifactId>stax-api</artifactId>
                 </exclusion>
@@ -220,10 +248,6 @@
                 <exclusion>
                     <artifactId>vertx-core</artifactId>
                     <groupId>io.vertx</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-web</artifactId>
-                    <groupId>org.springframework</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>jersey-client</artifactId>
