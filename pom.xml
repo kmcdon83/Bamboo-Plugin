@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cx</groupId>
     <artifactId>checkmarx-bamboo-plugin</artifactId>
-    <version>8.90.3</version>
+    <version>8.90.6</version>
     <organization>
         <name>Checkmarx LTD</name>
         <url>http://www.checkmarx.com/</url>
@@ -111,7 +111,7 @@
         <dependency>
             <groupId>com.checkmarx</groupId>
             <artifactId>cx-client-common</artifactId>
-            <version>8.90.11</version>
+            <version>8.90.13</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.xml.bind</groupId>
