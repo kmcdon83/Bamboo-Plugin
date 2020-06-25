@@ -76,7 +76,6 @@ public class CxRestResource {
             }
             urlConn.connect();
         } catch (Exception e) {
-            logger.error("Fail to connect: " + urlToCheck, e);
             return getInvalidUrlResponse(statusCode);
         }
 
