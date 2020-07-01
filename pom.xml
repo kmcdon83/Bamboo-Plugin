@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cx</groupId>
     <artifactId>checkmarx-bamboo-plugin</artifactId>
-    <version>2020.1.18-temp</version>
+    <version>2020.1.19-temp</version>
     <organization>
         <name>Checkmarx LTD</name>
         <url>http://www.checkmarx.com/</url>
@@ -79,7 +79,7 @@
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <common.client.version>9.00.21.bamboo</common.client.version>
+        <common.client.version>9.00.20.bamboo.temp</common.client.version>
 
         <sonar.projectKey>checkmarx-ltd_Bamboo-Plugin</sonar.projectKey>
         <sonar.organization>checkmarx-ltd</sonar.organization>
@@ -185,7 +185,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.0.10.RELEASE</version>
+            <version>5.0.17.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
