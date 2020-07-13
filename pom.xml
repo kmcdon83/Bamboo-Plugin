@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cx</groupId>
     <artifactId>checkmarx-bamboo-plugin</artifactId>
-    <version>2020.1.13</version>
+    <version>2020.3.1</version>
     <organization>
         <name>Checkmarx LTD</name>
         <url>http://www.checkmarx.com/</url>
@@ -66,6 +66,14 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -79,7 +87,7 @@
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <common.client.version>9.00.20.bamboo</common.client.version>
+        <common.client.version>2020.3.2.bamboo</common.client.version>
 
         <sonar.projectKey>checkmarx-ltd_Bamboo-Plugin</sonar.projectKey>
         <sonar.organization>checkmarx-ltd</sonar.organization>
@@ -185,7 +193,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.0.10.RELEASE</version>
+            <version>5.2.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -205,7 +213,7 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk14</artifactId>
-            <version>1.61</version>
+            <version>1.65</version>
         </dependency>
         <dependency>
             <groupId>xalan</groupId>
@@ -221,6 +229,18 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.4</version>
+            <exclusions>
+                <!-- Provided by Sonar -->
+               <!-- <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>-->
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.atlassian.templaterenderer</groupId>

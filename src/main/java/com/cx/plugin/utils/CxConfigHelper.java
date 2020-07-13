@@ -50,6 +50,7 @@ public class CxConfigHelper {
         scanConfig.setSourceDir(workDir.getAbsolutePath());
         scanConfig.setReportsDir(new File(workDir + CX_REPORT_LOCATION));
         scanConfig.setSastEnabled(true);
+        scanConfig.setDisableCertificateValidation(true);
         if (CUSTOM_CONFIGURATION_SERVER.equals(configMap.get(SERVER_CREDENTIALS_SECTION))) {
             scanConfig.setUrl(configMap.get(SERVER_URL));
             scanConfig.setUsername(configMap.get(USER_NAME));
@@ -101,6 +102,7 @@ public class CxConfigHelper {
         }
         scanConfig.setGeneratePDFReport(resolveBool(configMap, GENERATE_PDF_REPORT));
         scanConfig.setOsaEnabled(resolveBool(configMap, OSA_ENABLED));
+        scanConfig.setDisableCertificateValidation(true);
         scanConfig.setOsaArchiveIncludePatterns(configMap.get(OSA_ARCHIVE_INCLUDE_PATTERNS));
         scanConfig.setOsaFilterPattern(configMap.get(OSA_FILTER_PATTERNS));
         scanConfig.setOsaRunInstall(resolveBool(configMap, OSA_INSTALL_BEFORE_SCAN));

@@ -397,7 +397,7 @@ public class AgentTaskConfigurator extends AbstractTaskConfigurator {
         if (!StringUtils.isEmpty(serverUrl) && !StringUtils.isEmpty(username) && !StringUtils.isEmpty(cxPass)) {
             try {
                 URL cxUrl = new URL(serverUrl);
-                shraga = new CxShragaClient(cxUrl.toString().trim(), username, decrypt(cxPass), CX_ORIGIN, false, log);
+                shraga = new CxShragaClient(cxUrl.toString().trim(), username, decrypt(cxPass), CX_ORIGIN, true, log);
                 shraga.login();
 
                 return true;
