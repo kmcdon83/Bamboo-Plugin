@@ -2,33 +2,25 @@ package com.cx.plugin.testConnection;
 
 
 import com.cx.plugin.testConnection.dto.TestConnectionResponse;
+import com.cx.plugin.utils.HttpHelper;
 import com.cx.restclient.CxShragaClient;
 import com.cx.restclient.dto.Team;
-import com.cx.restclient.exception.CxClientException;
 import com.cx.restclient.sast.dto.Preset;
 import org.apache.commons.validator.routines.UrlValidator;
-import org.apache.http.ssl.SSLContexts;
-import org.apache.http.ssl.TrustStrategy;
 import org.codehaus.plexus.util.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.http.conn.ssl.TrustAllStrategy;
-import javax.net.ssl.HostnameVerifier;
+
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,25 +52,31 @@ public class CxRestResource {
         URL url;
         String urlToCheck;
         int statusCode = 400;
-        URLConnection urlConn;
+
         urlToCheck = StringUtils.defaultString(data.get("url"));
 
         try {
             UrlValidator urlValidator = new UrlValidator();
-            if(!urlValidator.isValid(urlToCheck)){
+            if (!urlValidator.isValid(urlToCheck)) {
                 return getInvalidUrlResponse(statusCode);
             }
-
             url = new URL(urlToCheck);
-            urlConn=url.openConnection();
-            if (url.getProtocol().equalsIgnoreCase("https")) {
-                ((HttpsURLConnection) urlConn).setSSLSocketFactory(getSSLSocketFactory());
-                ((HttpsURLConnection) urlConn).setHostnameVerifier(getHostnameVerifier());
-            }
-            //HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+            URLConnection urlConn;
 
+            Proxy proxy = HttpHelper.getHttpProxy();
+            if (proxy != null) {
+                logger.info("Using proxy to connect to SAST server");
+                urlConn = url.openConnection(proxy);
+            } else {
+                urlConn = url.openConnection();
+            }
+            if (url.getProtocol().equalsIgnoreCase("https")) {
+                ((HttpsURLConnection) urlConn).setSSLSocketFactory(HttpHelper.getSSLSocketFactory());
+                ((HttpsURLConnection) urlConn).setHostnameVerifier(HttpHelper.getHostnameVerifier());
+            }
             urlConn.connect();
         } catch (Exception e) {
+            logger.error("Fail to connect: " + urlToCheck, e);
             return getInvalidUrlResponse(statusCode);
         }
 
@@ -118,20 +116,7 @@ public class CxRestResource {
         tcResponse = new TestConnectionResponse(result, null, null);
         return Response.status(statusCode).entity(tcResponse).build();
     }
-    private static SSLSocketFactory getSSLSocketFactory() throws CxClientException {
-        TrustStrategy acceptingTrustStrategy = new TrustAllStrategy();
-        SSLContext sslContext;
-        try {
-            sslContext = SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-        } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
-            throw new CxClientException("Fail to set trust all certificate, 'SSLConnectionSocketFactory'", e);
-        }
-        return sslContext.getSocketFactory();
-    }
 
-    private static HostnameVerifier getHostnameVerifier() throws CxClientException {
-        return (hostname, session) -> true;
-    }
     @NotNull
     private TestConnectionResponse getTCFailedResponse() {
         presets = new ArrayList<Preset>() {{
@@ -150,8 +135,9 @@ public class CxRestResource {
             shraga.login();
 
             return true;
-        } catch (Exception CxClientException) {
-            result = CxClientException.getMessage();
+        } catch (Exception cxClientException) {
+            logger.error("Fail to login: ", cxClientException);
+            result = cxClientException.getMessage();
             return false;
         }
     }

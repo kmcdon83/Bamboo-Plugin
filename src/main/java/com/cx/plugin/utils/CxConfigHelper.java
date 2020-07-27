@@ -23,6 +23,7 @@ import static com.cx.plugin.utils.CxPluginUtils.resolveInt;
  * Created by Galn on 25/10/2017.
  */
 public class CxConfigHelper {
+
     private CxScanConfig scanConfig;
     private AdministrationConfiguration adminConfig;
     private boolean isIntervals;
@@ -132,6 +133,7 @@ public class CxConfigHelper {
         }
         scanConfig.setDenyProject(resolveGlobalBool(GLOBAL_DENY_PROJECT));
         scanConfig.setHideResults(resolveGlobalBool(GLOBAL_HIDE_RESULTS));
+        scanConfig.setDisableCertificateValidation(true);
         return scanConfig;
     }
 

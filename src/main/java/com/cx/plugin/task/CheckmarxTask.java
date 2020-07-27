@@ -6,6 +6,7 @@ package com.cx.plugin.task;
 
 import com.atlassian.bamboo.task.*;
 import com.atlassian.bamboo.v2.build.BuildContext;
+import com.atlassian.bamboo.variable.VariableDefinitionContext;
 import com.cx.plugin.dto.BambooScanResults;
 import com.cx.plugin.utils.CxAppender;
 import com.cx.plugin.utils.CxConfigHelper;
@@ -21,6 +22,9 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static com.cx.plugin.utils.CxParam.CONNECTION_FAILED_COMPATIBILITY;
 import static com.cx.plugin.utils.CxParam.HTML_REPORT;
@@ -40,6 +44,18 @@ public class CheckmarxTask implements TaskType {
         log = new CxLoggerAdapter(taskContext.getBuildLogger());
 
         try {
+            Map<String, VariableDefinitionContext> effectiveVariables = taskContext.getBuildContext().getVariableContext().getEffectiveVariables();
+            for (Map.Entry<String, VariableDefinitionContext> entry : effectiveVariables.entrySet()) {
+                if (entry.getKey().contains("CX_MAVEN_PATH") ||
+                        entry.getKey().contains("CX_GRADLE_PATH") ||
+                        entry.getKey().contains("CX_NPM_PATH") ||
+                        entry.getKey().contains("CX_COMPOSER_PATH")) {
+                    if (StringUtils.isNotEmpty(entry.getValue().getValue())) {
+                        System.setProperty(entry.getKey(), entry.getValue().getValue());
+                    }
+                }
+            }
+
             //resolve configuration
             CxConfigHelper configHelper = new CxConfigHelper(log);
             CxScanConfig config = configHelper.resolveConfigurationMap(taskContext.getConfigurationMap(), taskContext.getWorkingDirectory());
@@ -150,8 +166,7 @@ public class CheckmarxTask implements TaskType {
             //assert if expected exception is thrown  OR when vulnerabilities under threshold OR when policy violated
             String buildFailureResult = ShragaUtils.getBuildFailureResult(config, ret.getSastResults(), ret.getOsaResults());
             if (!StringUtils.isEmpty(buildFailureResult) || ret.getSastWaitException() != null || ret.getSastCreateException() != null ||
-                    ret.getOsaCreateException() != null || ret.getOsaWaitException() != null || ret.getGeneralException() != null)
-            {
+                    ret.getOsaCreateException() != null || ret.getOsaWaitException() != null || ret.getGeneralException() != null) {
                 printBuildFailure(buildFailureResult, ret, log);
                 return taskResultBuilder.failed().build();
             }
@@ -181,4 +196,5 @@ public class CheckmarxTask implements TaskType {
         } catch (Exception ignored) {
         }
     }
+
 }
