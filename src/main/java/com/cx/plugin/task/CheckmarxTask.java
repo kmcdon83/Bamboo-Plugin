@@ -22,8 +22,6 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static com.cx.plugin.utils.CxParam.CONNECTION_FAILED_COMPATIBILITY;
